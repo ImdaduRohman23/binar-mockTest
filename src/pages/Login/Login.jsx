@@ -13,9 +13,10 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(name.length === 4) {
-            navigate('/home')
+            navigate('/home');
+            localStorage.setItem('token', 'token masuk');
         }
-        else alert('Mohon masukan 4 angka')
+        else alert('Mohon masukan 4 angka');
     };
 
     return (
