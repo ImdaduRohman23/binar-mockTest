@@ -7,7 +7,7 @@ import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Routes>
         <Route path='/' element={<Login />}/>
         <Route path='/home' element={<PrivateRoute><Home /></PrivateRoute>}/>

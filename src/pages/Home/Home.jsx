@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import './home.css';
 
 const Home = () => {
@@ -52,7 +53,7 @@ const Home = () => {
                 <div>
                     <form className="home__form" onSubmit={handleSubmit}>
                         <input className='home__form-input' value={input} type="text" placeholder='Enter a todo . . .' onChange={(e) => setInput(e.target.value)}/>
-                        <button className='home__form-button'>Add</button>
+                        <Button className='home__form-button' variant="success">Add</Button>
                     </form>
                 </div>
                 <div>
@@ -61,8 +62,8 @@ const Home = () => {
                             <div className="home__todos">
                                 <p className={`home__todos-title ${todo.completed? 'completed': ''}`}>{todo.title}</p>
                                 <div className="home__todos-button">
-                                    <button onClick={() => handleCompleted(todo.id)}>clear</button>
-                                    <button onClick={() => handleDelete(todo.id)}>delete</button>
+                                    <Button onClick={() => handleCompleted(todo.id)} variant="warning">Finish</Button>
+                                    <Button onClick={() => handleDelete(todo.id)} variant="danger">Delete</Button>
                                 </div>
                             </div>
                         ))
