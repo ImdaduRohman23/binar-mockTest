@@ -1,32 +1,45 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import './home.css';
 
 const Home = () => {
     const [todos, setTodos] = useState([
-        {
-            'id': 1,
-            'title': 'makan',
-            'completed': false
-        },
-        {
-            'id': 2,
-            'title': 'mandi',
-            'completed': false
-        },
-        {
-            'id': 3,
-            'title': 'belajar react',
-            'completed': false
-        },
-        {
-            'id': 4,
-            'title': 'tidur',
-            'completed': false
-        }
+        // {
+        //     'id': 1,
+        //     'title': 'makan',
+        //     'completed': false
+        // },
+        // {
+        //     'id': 2,
+        //     'title': 'mandi',
+        //     'completed': false
+        // },
+        // {
+        //     'id': 3,
+        //     'title': 'belajar react',
+        //     'completed': false
+        // },
+        // {
+        //     'id': 4,
+        //     'title': 'tidur',
+        //     'completed': false
+        // }
     ]);
     const [input, setInput] = useState('');
     const [completed, setCompleted] = useState(false);
+    const navigate = useNavigate();
+
+    const getTodos = () => {
+        axios.get('https://jsonplaceholder.typicode.com/todos')
+            .then(res => setTodos(res.data))
+            .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        getTodos()
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,7 +48,7 @@ const Home = () => {
     };
 
     const handleDelete = (id) => {
-        setTodos(todos.filter(item => item.id != id))
+        setTodos(todos.filter(item => item.id !== id))
     };
 
     const handleCompleted = (id) => {
@@ -46,14 +59,20 @@ const Home = () => {
         }))
     }
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    }
+
     return (
         <div className="home">
             <div className="home-container">
+                <Button className='home__logout' variant="outline-warning" onClick={handleLogout}>Logout</Button>
                 <h1 className='home__title'>Todo App</h1>
                 <div>
                     <form className="home__form" onSubmit={handleSubmit}>
                         <input className='home__form-input' value={input} type="text" placeholder='Enter a todo . . .' onChange={(e) => setInput(e.target.value)}/>
-                        <Button className='home__form-button' variant="success">Add</Button>
+                        <Button className='home__form-button' variant="warning">Add</Button>
                     </form>
                 </div>
                 <div>
@@ -62,7 +81,7 @@ const Home = () => {
                             <div className="home__todos">
                                 <p className={`home__todos-title ${todo.completed? 'completed': ''}`}>{todo.title}</p>
                                 <div className="home__todos-button">
-                                    <Button onClick={() => handleCompleted(todo.id)} variant="warning">Finish</Button>
+                                    <Button onClick={() => handleCompleted(todo.id)} variant="success">Finish</Button>
                                     <Button onClick={() => handleDelete(todo.id)} variant="danger">Delete</Button>
                                 </div>
                             </div>

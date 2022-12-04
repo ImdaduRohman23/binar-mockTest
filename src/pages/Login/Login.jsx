@@ -25,9 +25,9 @@ const Login = () => {
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3 login-content" controlId="formBasicEmail">
                         <h1 className='login-title'>Todo App</h1>
-                        <Form.Label>Login ?</Form.Label>
+                        <Form.Label className='login-text'>Login ?</Form.Label>
                         <Form.Control type="number" placeholder="Masukan 4 angka" onChange={(e) => setName(e.target.value)}/>
-                        <Button variant="primary" type="submit" className='login-button'>Submit</Button>
+                        <Button variant="warning" type="submit" className='login-button'>Submit</Button>
                     </Form.Group>
                 </Form>
             </div>
