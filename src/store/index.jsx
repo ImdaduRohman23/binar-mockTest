@@ -8,8 +8,8 @@ function reducer(state = initialState, action) {
     switch (action.type) {
         case 'GET_DATA':
             return {...state, data: action.data}
+        default: return state;
     }
-    return state;
 };
 
 const store = createStore(reducer, applyMiddleware(thunk));

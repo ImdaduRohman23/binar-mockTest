@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getApi } from '../../store/action/actionApi';
+import {v4 as uuidv4} from 'uuid';
 import './home.css';
 
 const Home = () => {
@@ -10,19 +11,9 @@ const Home = () => {
     const [input, setInput] = useState('');
     const navigate = useNavigate();
 
-    // const getTodos = () => {
-    //     axios.get('https://jsonplaceholder.typicode.com/todos')
-    //         .then(res => setTodos(res.data))
-    //         .catch(err => console.log(err))
-    // }
-
-    // useEffect(() => {
-    //     getTodos()
-    // }, []);
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        setTodos([...todos, {title: input}]);
+        setTodos([...todos, {title: input, id: uuidv4()}]);
         setInput('');
     };
 
