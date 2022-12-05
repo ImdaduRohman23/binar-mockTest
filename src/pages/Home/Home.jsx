@@ -1,45 +1,24 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getApi } from '../../store/action/actionApi';
 import './home.css';
 
 const Home = () => {
-    const [todos, setTodos] = useState([
-        // {
-        //     'id': 1,
-        //     'title': 'makan',
-        //     'completed': false
-        // },
-        // {
-        //     'id': 2,
-        //     'title': 'mandi',
-        //     'completed': false
-        // },
-        // {
-        //     'id': 3,
-        //     'title': 'belajar react',
-        //     'completed': false
-        // },
-        // {
-        //     'id': 4,
-        //     'title': 'tidur',
-        //     'completed': false
-        // }
-    ]);
+    const [todos, setTodos] = useState([]);
     const [input, setInput] = useState('');
-    const [completed, setCompleted] = useState(false);
     const navigate = useNavigate();
 
-    const getTodos = () => {
-        axios.get('https://jsonplaceholder.typicode.com/todos')
-            .then(res => setTodos(res.data))
-            .catch(err => console.log(err))
-    }
+    // const getTodos = () => {
+    //     axios.get('https://jsonplaceholder.typicode.com/todos')
+    //         .then(res => setTodos(res.data))
+    //         .catch(err => console.log(err))
+    // }
 
-    useEffect(() => {
-        getTodos()
-    }, []);
+    // useEffect(() => {
+    //     getTodos()
+    // }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,12 +36,24 @@ const Home = () => {
                 return {...item, completed: !item.completed}
             } else return item
         }))
-    }
+    };
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
     }
+
+    const data = useSelector(state => state.data);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getApi());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        setTodos(data);
+    }, [data]);
 
     return (
         <div className="home">
@@ -77,8 +68,8 @@ const Home = () => {
                 </div>
                 <div>
                     {
-                        todos.map(todo => (
-                            <div className="home__todos">
+                        todos && todos.map(todo => (
+                            <div className="home__todos" key={todo.id}>
                                 <p className={`home__todos-title ${todo.completed? 'completed': ''}`}>{todo.title}</p>
                                 <div className="home__todos-button">
                                     <Button onClick={() => handleCompleted(todo.id)} variant="success">Finish</Button>
