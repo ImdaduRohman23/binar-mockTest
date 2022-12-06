@@ -7,14 +7,16 @@ import './login.css';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [name, setName] = useState('');
+    const [angka, setAngka] = useState('');
+    const [user, setUser] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(name.length === 4) {
+        if(angka.length === 4) {
             navigate('/home');
             localStorage.setItem('token', 'token masuk');
+            localStorage.setItem('user', `${user}`);
         }
         else alert('Mohon masukan 4 angka');
     };
@@ -26,7 +28,9 @@ const Login = () => {
                     <Form.Group className="mb-3 login-content" controlId="formBasicEmail">
                         <h1 className='login-title'>Todo App</h1>
                         <Form.Label className='login-text'>Login ?</Form.Label>
-                        <Form.Control type="number" placeholder="Masukan 4 angka" onChange={(e) => setName(e.target.value)}/>
+                        <Form.Control type="number" placeholder="Masukan 4 angka" onChange={(e) => setAngka(e.target.value)}/>
+                        <br />
+                        <Form.Control type="text" placeholder="Masukan nama mu ya . ." onChange={(e) => setUser(e.target.value)}/>
                         <Button variant="warning" type="submit" className='login-button'>Submit</Button>
                     </Form.Group>
                 </Form>

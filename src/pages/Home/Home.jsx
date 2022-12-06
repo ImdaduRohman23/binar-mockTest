@@ -9,6 +9,7 @@ import './home.css';
 const Home = () => {
     const [todos, setTodos] = useState([]);
     const [input, setInput] = useState('');
+    const user = localStorage.getItem('user');
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -31,6 +32,7 @@ const Home = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         navigate('/');
     }
 
@@ -49,7 +51,10 @@ const Home = () => {
     return (
         <div className="home">
             <div className="home-container">
-                <Button className='home__logout' variant="outline-warning" onClick={handleLogout}>Logout</Button>
+                <div className="home__up">
+                    <h5 className='home__user'>{user}</h5>
+                    <Button className='home__logout' variant="outline-warning" onClick={handleLogout}>Logout</Button>
+                </div>
                 <h1 className='home__title'>Todo App</h1>
                 <div>
                     <form className="home__form" onSubmit={handleSubmit}>

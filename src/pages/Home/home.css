@@ -84,3 +84,15 @@
     text-decoration-line: line-through;
     opacity: 0.6;
 }
+
+.home__up {
+    display: flex;
+    justify-content: space-between;
+}
+
+.home__user {
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 5px;
+}
