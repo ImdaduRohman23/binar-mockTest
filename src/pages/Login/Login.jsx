@@ -13,7 +13,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(angka.length === 4) {
+        if(angka.length === 4 && user.length !== 0) {
             navigate('/home');
             localStorage.setItem('token', 'token masuk');
             localStorage.setItem('user', `${user}`);

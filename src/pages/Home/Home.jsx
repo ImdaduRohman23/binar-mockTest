@@ -12,6 +12,18 @@ const Home = () => {
     const user = localStorage.getItem('user');
     const navigate = useNavigate();
 
+    const data = useSelector(state => state.data);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getApi());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        setTodos(data);
+    }, [data]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setTodos([...todos, {title: input, id: uuidv4()}]);
@@ -36,17 +48,7 @@ const Home = () => {
         navigate('/');
     }
 
-    const data = useSelector(state => state.data);
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getApi());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        setTodos(data);
-    }, [data]);
 
     return (
         <div className="home">
